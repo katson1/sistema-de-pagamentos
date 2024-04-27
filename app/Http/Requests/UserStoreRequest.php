@@ -3,6 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Symfony\Component\HttpFoundation\Response;
 
 class UserStoreRequest extends FormRequest
 {
@@ -39,5 +42,15 @@ class UserStoreRequest extends FormRequest
             'password.required' => 'The password field is required.',
             'password.min' => 'The password must be at least 8 characters long.',
         ];
+    }
+
+    protected function failedValidation(Validator $validator)
+    {
+        $response = response()->json([
+            'message' => 'Data given is invalid.',
+            'errors' => $validator->errors(),
+        ], Response::HTTP_NOT_FOUND);
+
+        throw new HttpResponseException($response);
     }
 }
