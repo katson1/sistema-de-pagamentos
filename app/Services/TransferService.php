@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Services;
-use App\Interfaces\TransferInterface;
 
+use App\Interfaces\TransferInterface;
+use Illuminate\Support\Facades\DB;
 use App\Models\User;
 
 class TransferService implements TransferInterface
@@ -23,8 +24,6 @@ class TransferService implements TransferInterface
             return "Sender does not have enough balance.";
             throw new \Exception("Sender does not have enough balance.");
         }
-
-        return $sender->balancerue;
 
         DB::beginTransaction();
         try {
