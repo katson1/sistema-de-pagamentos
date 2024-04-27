@@ -5,7 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ApiRoutesTest extends TestCase
+class ApiUserStoreTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -50,6 +50,27 @@ class ApiRoutesTest extends TestCase
         $response = $this->postJson('/users', $userData);
         $response->assertStatus(404);
         $response->assertJsonValidationErrors(['cpf_cnpj', 'balance']);
+    }
+
+    public function test_user_creation_with_duplicate_email_and_cpf_cnpj()
+    {
+        $userData = $this->userData([
+            'email' => 'duplicate@test.com',
+            'cpf_cnpj' => '99999999999',
+        ]);
+
+        $response = $this->postJson('/users', $userData);
+        $response->assertStatus(201); // Espera sucesso na primeira criação
+
+        // Segunda criação com o mesmo email e CPF/CNPJ
+        $secondUserData = $this->userData([
+            'email' => 'duplicate@test.com',
+            'cpf_cnpj' => '99999999999',
+        ]);
+
+        $secondResponse = $this->postJson('/users', $secondUserData);
+        $secondResponse->assertStatus(404); // Espera falha devido a duplicidade
+        $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']); // Verifica se os erros de email e cpf_cnpj duplicados são retornados
     }
 
     //Func para reutilizar o userData nos testes
