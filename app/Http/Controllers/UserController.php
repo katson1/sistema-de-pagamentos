@@ -2,23 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\User;
 use App\Http\Requests\UserStoreRequest;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    private $userService;
+
+    public function __construct(UserService $userService)
+    {
+        $this->userService = $userService;
+    }
+
     public function store(UserStoreRequest $request)
     {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->cpf_cnpj = $request->cpf_cnpj;
-        $user->user_type = $request->user_type;
-        $user->balance = $request->balance ?? 0;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
+        $user = $this->userService->createUser($request);
         return response()->json($user, 201);
     }
 }

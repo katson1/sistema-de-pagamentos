@@ -28,19 +28,8 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * @return float
-     */
     public function getBalance(): float
     {
         return $this->attributes['balance'];
-    }
-
-    /**
-     * @return string
-     */
-    public function getType(): bool
-    {
-        return $this->attributes['user_type'];
     }
 }
