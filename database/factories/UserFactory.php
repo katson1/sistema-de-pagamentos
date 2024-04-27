@@ -30,7 +30,6 @@ class UserFactory extends Factory
             'user_type' => $this->faker->randomElement(['common', 'store']),
             'balance' => $this->faker->randomFloat(2, 0, 1000),
             'password' => Hash::make('password'),
-            'remember_token' => Str::random(10),
         ];
     }
 }

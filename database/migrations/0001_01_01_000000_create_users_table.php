@@ -18,7 +18,6 @@ return new class extends Migration
             $table->enum('user_type', ['common', 'store'])->default('common');
             $table->float('balance')->default(0);
             $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
 
