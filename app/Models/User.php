@@ -29,16 +29,11 @@ class User extends Authenticatable
         'user_type' => 'string',
     ];
 
-    public function getBalance(): float
-    {
-        return $this->attributes['balance'];
-    }
-
     public function canSendMoney()
     {
-        return $this->user_type === 'common';
+        return in_array($this->user_type, ['common']);
     }
-
+    
     public function canReceiveMoney()
     {
         return true;

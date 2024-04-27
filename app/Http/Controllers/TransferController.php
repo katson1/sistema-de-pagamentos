@@ -7,6 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Services\TransferService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use App\Models\User;
+
 
 class TransferController extends Controller
 {
@@ -22,7 +24,6 @@ class TransferController extends Controller
         $sender = User::find($request->sender_id);
         $receiver = User::find($request->receiver_id);
         $amount = $request->amount;
-
         try {
             $this->transferService->execute($sender, $receiver, $amount);
             return response()->json(['message' => 'Transfer successful!'], 200);

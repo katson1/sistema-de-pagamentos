@@ -1,6 +1,7 @@
 <?php
 
-namespace App\Contracts;
+namespace App\Interfaces;
+use App\Models\User;
 
 interface TransferInterface
 {
