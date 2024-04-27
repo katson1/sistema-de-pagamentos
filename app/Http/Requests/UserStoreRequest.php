@@ -19,7 +19,7 @@ class UserStoreRequest extends FormRequest
         return [
             'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'cpf_cnpj' => 'required|string|unique:users,cpf_cnpj',
+            'cpf_cnpj' => 'required|numeric|digits_between:11,14|unique:users,cpf_cnpj',
             'user_type' => 'required|in:common,store',
             'balance' => 'numeric|min:0',
             'password' => 'required|string|min:8',
@@ -35,6 +35,8 @@ class UserStoreRequest extends FormRequest
             'email.unique' => 'This email address is already in use.',
             'cpf_cnpj.required' => 'The CPF/CNPJ field is required.',
             'cpf_cnpj.unique' => 'This CPF/CNPJ is already in use.',
+            'cpf_cnpj.numeric' => 'The CPF/CNPJ is not valid.',
+            'cpf_cnpj.digits_between' => 'The CPF/CNPJ must be between 11 and 14 digits long.',
             'user_type.required' => 'The user type is required.',
             'user_type.in' => 'The user type must be "common" or "store".',
             'balance.numeric' => 'The balance must be a numeric value.',
