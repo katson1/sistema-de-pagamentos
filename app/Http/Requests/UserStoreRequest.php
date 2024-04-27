@@ -11,7 +11,7 @@ class UserStoreRequest extends FormRequest
         return true;
     }
 
-    public function rules()
+    public function rules(): array
     {
         return [
             'name' => 'required|string',
@@ -23,7 +23,7 @@ class UserStoreRequest extends FormRequest
         ];
     }
 
-    public function messages()
+    public function messages(): array
     {
         return [
             'name.required' => 'The name field is required.',

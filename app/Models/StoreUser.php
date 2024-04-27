@@ -8,13 +8,13 @@ class StoreUser extends User implements Transferable
 {
     protected $table = 'users';
 
-    public function sendMoney($destination, $amount)
+    public function canSendMoney($destination, $amount): bool
     {
-        throw new \Exception("Stores cannot send money.");
+        return false;
     }
 
-    public function receiveMoney($source, $amount)
+    public function canReceiveMoney(): bool
     {
-        echo "Recieving {$amount} of {$source->name}.";
+        return true;
     }
 }

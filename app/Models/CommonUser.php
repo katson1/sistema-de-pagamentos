@@ -8,13 +8,13 @@ class CommonUser extends User implements Transferable
 {
     protected $table = 'users';
     
-    public function sendMoney($destination, $amount)
+    public function sendMoney($destination, $amount): bool
     {
-        echo "Sending {$amount} to {$destination->name}.";
+        return true;
     }
 
-    public function receiveMoney($source, $amount)
+    public function receiveMoney($source, $amount): bool
     {
-        echo "Recieving {$amount} of {$source->name}.";
+        return true;
     }
 }
