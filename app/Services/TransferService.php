@@ -3,37 +3,66 @@
 namespace App\Services;
 
 use App\Interfaces\TransferInterface;
-use Illuminate\Support\Facades\DB;
+use App\Services\Authorization\ExternalAuthorizationService;
+use App\Services\NotificationService;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 class TransferService implements TransferInterface
 {
-    public function execute(User $sender, User $receiver, float $amount): bool
+    private ExternalAuthorizationService $authorizationService;
+    private NotificationService $notificationService;
+
+    public function __construct(ExternalAuthorizationService $authorizationService, NotificationService $notificationService)
     {
-        if (!$sender->canSendMoney()) {
-            return "Sender cannot send money.";
-            throw new \Exception("Sender cannot send money.");
-        }
+        $this->authorizationService = $authorizationService;
+        $this->notificationService = $notificationService;
+    }
 
-        if (!$receiver->canReceiveMoney()) {
-            return "Receiver cannot receive money.";
-            throw new \Exception("Receiver cannot receive money.");
-        }
+    public function execute(User $sender, User $receiver, float $amount): array
+    {
+        $this->validateTransaction($sender, $receiver, $amount);
 
-        if ($sender->balance < $amount) {
-            return "Sender does not have enough balance.";
-            throw new \Exception("Sender does not have enough balance.");
-        }
+        $notificationResult = false;
 
         DB::beginTransaction();
         try {
             $sender->decrement('balance', $amount);
+            $this->authorizeTransaction();
             $receiver->increment('balance', $amount);
             DB::commit();
-            return true;
         } catch (\Exception $e) {
             DB::rollBack();
             throw $e;
+        }
+
+        $notificationResult = $this->notificationService->notifyUsers($sender, $receiver, $amount);
+
+        return [
+            'transaction' => true,
+            'notification' => $notificationResult
+        ];
+    }
+
+    private function validateTransaction(User $sender, User $receiver, float $amount): void
+    {
+        if (!$sender->canSendMoney()) {
+            throw new \Exception("Sender cannot send money.");
+        }
+
+        if (!$receiver->canReceiveMoney()) {
+            throw new \Exception("Receiver cannot receive money.");
+        }
+
+        if ($sender->balance < $amount) {
+            throw new \Exception("Sender does not have enough balance.");
+        }
+    }
+
+    private function authorizeTransaction(): void
+    {
+        if (!$this->authorizationService->authorize()) {
+            throw new \Exception("Transaction not authorized by external service.");
         }
     }
 }

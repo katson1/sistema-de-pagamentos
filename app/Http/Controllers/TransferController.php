@@ -19,14 +19,17 @@ class TransferController extends Controller
         $this->transferService = $transferService;
     }
 
-    public function transfer(Request $request)
+    public function transfer(TransferRequest $request)
     {
-        $sender = User::find($request->sender_id);
-        $receiver = User::find($request->receiver_id);
+        $sender = User::find($request->id_sender);
+        $receiver = User::find($request->id_receiver);
         $amount = $request->amount;
         try {
-            $this->transferService->execute($sender, $receiver, $amount);
-            return response()->json(['message' => 'Transfer successful!'], 200);
+            $execute = $this->transferService->execute($sender, $receiver, $amount);
+            return response()->json([
+                'message' => 'Transfer successful!',
+                'notification' => $execute['notification']], 
+                200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
