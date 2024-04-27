@@ -37,10 +37,11 @@ class UserService
 
     private function fillUserData(User $user, $userData): void
     {
-        $user->name = $userData['name'];
-        $user->email = $userData['email'];
-        $user->cpf_cnpj = $userData['cpf_cnpj'];
-        $user->balance = $userData['balance'] ?? 0;
-        $user->password = bcrypt($userData['password']);
+        $user->name = $userData->name;
+        $user->email = $userData->email;
+        $user->cpf_cnpj = $userData->cpf_cnpj;
+        $user->balance = $userData->balance ?? 0;
+        $user->password = bcrypt($userData->password);
+        $user->save();
     }
 }
