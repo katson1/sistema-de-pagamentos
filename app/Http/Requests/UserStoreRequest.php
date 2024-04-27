@@ -26,18 +26,18 @@ class UserStoreRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'O campo nome é obrigatório.',
-            'email.required' => 'O campo e-mail é obrigatório.',
-            'email.email' => 'Por favor, insira um endereço de e-mail válido.',
-            'email.unique' => 'Este endereço de e-mail já está em uso.',
-            'cpf_cnpj.required' => 'O campo CPF/CNPJ é obrigatório.',
-            'cpf_cnpj.unique' => 'Este CPF/CNPJ já está em uso.',
-            'user_type.required' => 'O tipo de usuário é obrigatório.',
-            'user_type.in' => 'O tipo de usuário deve ser "common" ou "store".',
-            'balance.numeric' => 'O saldo deve ser um valor numérico.',
-            'balance.min' => 'O saldo não pode ser inferior a 0.',
-            'password.required' => 'O campo senha é obrigatório.',
-            'password.min' => 'A senha deve ter pelo menos 8 caracteres.',
+            'name.required' => 'The name field is required.',
+            'email.required' => 'The email field is required.',
+            'email.email' => 'Please enter a valid email address.',
+            'email.unique' => 'This email address is already in use.',
+            'cpf_cnpj.required' => 'The CPF/CNPJ field is required.',
+            'cpf_cnpj.unique' => 'This CPF/CNPJ is already in use.',
+            'user_type.required' => 'The user type is required.',
+            'user_type.in' => 'The user type must be "common" or "store".',
+            'balance.numeric' => 'The balance must be a numeric value.',
+            'balance.min' => 'The balance cannot be less than 0.',
+            'password.required' => 'The password field is required.',
+            'password.min' => 'The password must be at least 8 characters long.',
         ];
     }
 }
