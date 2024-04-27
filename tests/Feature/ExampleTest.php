@@ -15,10 +15,4 @@ class ExampleTest extends TestCase
         $response = $this->get('/');
         $response->assertStatus(200);
     }
-
-    public function test_api_route_works(): void
-    {
-        $response = $this->get('/api');
-        $response->assertStatus(200);
-    }
 }

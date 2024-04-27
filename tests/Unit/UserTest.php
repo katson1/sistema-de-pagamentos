@@ -5,6 +5,7 @@ namespace Tests\Unit;
 use App\Models\User;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Database\QueryException;
 
 class UserTest extends TestCase
 {
@@ -31,7 +32,7 @@ class UserTest extends TestCase
 
     public function test_user_type_must_be_either_common_or_store()
     {
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        $this->expectException(QueryException::class);
 
         $user = User::factory()->make([
             'user_type' => 'invalid_type'
@@ -44,7 +45,7 @@ class UserTest extends TestCase
 
     public function test_user_email_and_cpf_cnpj_must_be_unique()
     {
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        $this->expectException(QueryException::class);
 
         $user1 = User::factory()->create();
 
@@ -58,7 +59,7 @@ class UserTest extends TestCase
 
     public function test_user_required_attribute()
     {
-        $this->expectException(\Illuminate\Database\QueryException::class);
+        $this->expectException(QueryException::class);
 
         $user = User::factory()->make([
             'name' => null,
