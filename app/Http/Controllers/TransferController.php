@@ -25,8 +25,11 @@ class TransferController extends Controller
         $receiver = User::find($request->id_receiver);
         $amount = $request->amount;
         try {
-            $this->transferService->execute($sender, $receiver, $amount);
-            return response()->json(['message' => 'Transfer successful!'], 200);
+            $execute = $this->transferService->execute($sender, $receiver, $amount);
+            return response()->json([
+                'message' => 'Transfer successful!',
+                'notification' => $execute['notification']], 
+                200);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }
