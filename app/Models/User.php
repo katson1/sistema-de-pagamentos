@@ -26,10 +26,21 @@ class User extends Authenticatable
 
     protected $casts = [
         'password' => 'hashed',
+        'user_type' => 'string',
     ];
 
     public function getBalance(): float
     {
         return $this->attributes['balance'];
+    }
+
+    public function canSendMoney()
+    {
+        return $this->user_type === 'common';
+    }
+
+    public function canReceiveMoney()
+    {
+        return true;
     }
 }
