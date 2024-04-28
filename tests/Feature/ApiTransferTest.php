@@ -120,4 +120,27 @@ class ApiTransferTest extends TestCase
         $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
         $this->assertEquals($userStore->balance, $userStoreUpdated->balance);
     }
+
+    
+
+    public function test_fail_transfer_same_sender_and_receiver()
+    {
+        $userCommon = User::factory()->create([
+            'user_type' => 'common',
+            'balance' => 100
+        ]);
+
+        $transferData = [
+            "id_sender" => $userCommon->id,
+            "id_receiver" => $userCommon->id,
+            "amount" => 100
+        ];
+
+        $response = $this->postJson('/api/transfer', $transferData);
+        $response->assertStatus(400);
+        $response->assertJson(['error' => 'The sender cannot be the same as the receiver.']);
+
+        $userCommonUpdated = User::find($userCommon->id);
+        $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
+    }
 }
