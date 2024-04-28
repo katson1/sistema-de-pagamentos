@@ -10,14 +10,13 @@ class UserTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_example(): void
+    public function test_create_single_user(): void
     {
-        
         $user = User::factory()->create();
         $this->assertDatabaseHas('users', ['email' => $user->email]);
     }
 
-    public function test_multiple_users(): void
+    public function test_create_multiple_users(): void
     {
         $users = User::factory()->count(5)->create();
         $this->assertEquals(5, count($users));
