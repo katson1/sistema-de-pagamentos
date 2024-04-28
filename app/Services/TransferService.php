@@ -45,7 +45,11 @@ class TransferService implements TransferInterface
     }
 
     private function validateTransaction(User $sender, User $receiver, float $amount): void
-    {
+    {   
+        if ($sender == $receiver) {
+            throw new \Exception("The sender cannot be the same as the receiver.");
+        }
+
         if (!$sender->canSendMoney()) {
             throw new \Exception("Sender cannot send money.");
         }
