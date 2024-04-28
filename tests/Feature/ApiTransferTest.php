@@ -121,8 +121,6 @@ class ApiTransferTest extends TestCase
         $this->assertEquals($userStore->balance, $userStoreUpdated->balance);
     }
 
-    
-
     public function test_fail_transfer_same_sender_and_receiver()
     {
         $userCommon = User::factory()->create([
