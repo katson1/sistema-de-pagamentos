@@ -17,7 +17,7 @@ class ApiUserStoreTest extends TestCase
 
     public function test_successful_user_creation()
     {
-        $response = $this->postJson('/users', $this->userData());
+        $response = $this->postJson('/api/users', $this->userData());
         $response->assertStatus(201);
         $response->assertJsonStructure([
             'email', 'name', 'cpf_cnpj', 'user_type', 'balance', 'created_at', 'updated_at', 'id'
@@ -35,7 +35,7 @@ class ApiUserStoreTest extends TestCase
             'password' => 'short', // Inválido porque é muito curto
         ]);
 
-        $response = $this->postJson('/users', $userData);
+        $response = $this->postJson('/api/users', $userData);
         $response->assertStatus(404);
         $response->assertJsonValidationErrors(['name', 'email', 'cpf_cnpj', 'user_type', 'balance', 'password']);
     }
@@ -47,7 +47,7 @@ class ApiUserStoreTest extends TestCase
             'balance' => -12, // Inválido porque é negativo
         ]);
 
-        $response = $this->postJson('/users', $userData);
+        $response = $this->postJson('/api/users', $userData);
         $response->assertStatus(404);
         $response->assertJsonValidationErrors(['cpf_cnpj', 'balance']);
     }
@@ -59,7 +59,7 @@ class ApiUserStoreTest extends TestCase
             'cpf_cnpj' => '99999999999',
         ]);
 
-        $response = $this->postJson('/users', $userData);
+        $response = $this->postJson('/api/users', $userData);
         $response->assertStatus(201); // Espera sucesso na primeira criação
 
         // Segunda criação com o mesmo email e CPF/CNPJ
@@ -68,7 +68,7 @@ class ApiUserStoreTest extends TestCase
             'cpf_cnpj' => '99999999999',
         ]);
 
-        $secondResponse = $this->postJson('/users', $secondUserData);
+        $secondResponse = $this->postJson('/api/users', $secondUserData);
         $secondResponse->assertStatus(404); // Espera falha devido a duplicidade
         $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']); // Verifica se os erros de email e cpf_cnpj duplicados são retornados
     }
