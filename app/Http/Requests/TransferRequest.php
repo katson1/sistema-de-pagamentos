@@ -31,7 +31,8 @@ class TransferRequest extends FormRequest
             'id_receiver.required' => 'The receiver ID is required.',
             'id_receiver.numeric' => 'The receiver ID must be a numeric value.',
             'amount.required' => 'The amount is required.',
-            'amount.numeric' => 'The amount must be a numeric value.'
+            'amount.numeric' => 'The amount must be a numeric value.',
+            'amount.min' => 'The amount be at least 00.1.'
         ];
     }
 
