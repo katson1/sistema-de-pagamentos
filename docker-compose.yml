@@ -1,0 +1,57 @@
+services:
+    # image project
+    app:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        restart: unless-stopped
+        working_dir: /var/www/
+        volumes:
+            - ./:/var/www
+        depends_on:
+            - redis
+            - psql  # Dependência adicionada aqui
+        networks:
+            - laravel
+
+    # nginx
+    nginx:
+        image: nginx:alpine
+        restart: unless-stopped
+        ports:
+            - "8989:80"
+        volumes:
+            - ./:/var/www
+            - ./docker/nginx/:/etc/nginx/conf.d/
+        networks:
+            - laravel
+
+    # psql (PostgreSQL)
+    psql:
+        image: postgres:13
+        restart: unless-stopped
+        environment:
+            POSTGRES_DB: ${DB_DATABASE:-laravel}
+            POSTGRES_PASSWORD: ${DB_PASSWORD:-root}
+            POSTGRES_USER: ${DB_USERNAME:-username}
+        volumes:
+            - postgres:/var/lib/postgresql/data
+        command: >
+          bash -c "chown -R postgres:postgres /var/lib/postgresql/data && chmod 700 /var/lib/postgresql/data && docker-entrypoint.sh postgres"
+        ports:
+            - "5432:5432"
+        networks:
+            - laravel
+
+    # redis
+    redis:
+        image: redis:latest
+        networks:
+            - laravel
+
+networks:
+    laravel:
+        driver: bridge
+
+volumes:
+  postgres:
