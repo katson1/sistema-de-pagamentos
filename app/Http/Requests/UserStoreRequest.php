@@ -51,7 +51,7 @@ class UserStoreRequest extends FormRequest
         $response = response()->json([
             'message' => 'Data given is invalid.',
             'errors' => $validator->errors(),
-        ], Response::HTTP_NOT_FOUND);
+        ], Response::HTTP_BAD_REQUEST);
 
         throw new HttpResponseException($response);
     }
