@@ -53,6 +53,8 @@ Em breve
 Em breve
 
 ## Testes
+Os testes utilizam o SQLite com a base na memória (:memory:) já que a tabela de banco é simples, facilitando também os testes pelo github.
+
 Use o seguinte comando para executar os testes automatizados localmente (unitários e de integração):
 ```bash
 php artisan test
