@@ -17,8 +17,12 @@ class UserController extends Controller
     }
 
     public function store(UserStoreRequest $request): JsonResponse
-    {
-        $user = $this->userService->createUser($request);
-        return response()->json($user, 201);
+    {   
+        try {
+            $user = $this->userService->createUser($request);
+            return response()->json($user, 201);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 400);
+        }
     }
 }

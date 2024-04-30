@@ -1,0 +1,231 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+        "title": "Sistema de pagamentos",
+        "description": "Documentation of sistema de pagamentos api",
+        "version": "1.0.0"
+    },
+    "components": {
+
+    },
+    "paths": {
+        "/api/user": {
+          "post": {
+            "tags": [
+              "User"
+            ],
+            "summary": "User Store",
+            "description": "Criar usuário.",
+            "requestBody": {
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Nome completo do usuário"
+                      },
+                      "email": {
+                        "type": "string",
+                        "description": "Email do usuário"
+                      },
+                      "cpf_cnpj": {
+                        "type": "number",
+                        "description": "CPF ou CNPJ do usuário"
+                      },
+                      "user_type": {
+                        "type": "string",
+                        "enum": ["common", "store"],
+                        "description": "Tipo do usuário:"
+                      },
+                      "balance": {
+                        "type": "integer",
+                        "description": "Saldo inicial do usuário"
+                      },
+                      "password": {
+                        "type": "string",
+                        "description": "Senha do usuário"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "email",
+                      "cpf_cnpj",
+                      "user_type",
+                      "password"
+                    ],
+                    "example": {
+                      "name": "Katson",
+                      "email": "katson@teste.com.br",
+                      "cpf_cnpj": "123456789100",
+                      "user_type": "common",
+                      "balance": "200",
+                      "password": "MyPassword123"
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "201": {
+                "description": "User created successfully.",
+                "content": {
+                  "json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                            "type": "string",
+                            "description": "Nome completo do usuário"
+                        },
+                        "email": {
+                            "type": "string",
+                            "description": "Email do usuário"
+                        },
+                        "cpf_cnpj": {
+                            "type": "string",
+                            "description": "123456789100"
+                        },
+                        "user_type": {
+                            "type": "string",
+                            "description": "common"
+                        },
+                        "balance": {
+                            "type": "string",
+                            "description": "200"
+                        },
+                        "updated_at":{
+                            "type": "string",
+                            "description": "2024-04-30T03:19:26.000000Z"
+                        },
+                        "created_at":{
+                            "type": "string",
+                            "description": "2024-04-30T03:19:26.000000Z"
+                        },
+                        "id":{
+                            "type": "string",
+                            "description": "1"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "404": {
+                "description": "Data given is invalid.",
+                "content": {
+                  "json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                            "type": "string",
+                            "description": "Data given is invalid."
+                        },
+                        "errors": {
+                            "type": "object",
+                            "properties": {
+                                "email": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "string"
+                                  }
+                                },"cpf_cnpj": {
+                                "type": "array",
+                                "items": {
+                                  "type": "string"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/api/tranfer": {
+          "post": {
+            "tags": [
+              "Transfer"
+            ],
+            "summary": "Do a transfer",
+            "description": "Transfere dinheiro de um usuário para outro",
+            "requestBody": {
+              "content": {
+                "application/x-www-form-urlencoded": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "id_sender": {
+                        "type": "string",
+                        "description": "ID do usuário que irá ENVIAR o dinheiro"
+                      },
+                      "id_receiver": {
+                        "type": "string",
+                        "description": "ID do usuário que irá RECEBER o dinheiro"
+                      },
+                      "amount": {
+                        "type": "integer",
+                        "description": "Montante a enviar"
+                      }
+                    },
+                    "required": [
+                      "id_sender",
+                      "id_receiver",
+                      "amount"
+                    ],
+                    "example": {
+                      "id_sender": "1",
+                      "id_receiver": "2",
+                      "amount": "100"
+                    }
+                  }
+                }
+              }
+            },
+            "responses": {
+              "200": {
+                "description": "Transfer successful!",
+                "content": {
+                  "json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                            "type": "string",
+                            "description": "Transfer successful!"
+                        },
+                        "notification": {
+                            "type": "boolean",
+                            "description": "true"
+                        }
+                      }
+                    }
+                  }
+                }
+              },
+              "400": {
+                "description": "Something went wrong! Transfer failed!",
+                "content": {
+                  "json": {
+                    "schema": {
+                      "type": "object",
+                      "properties": {
+                        "error": {
+                            "type": "string",
+                            "description": "Sender does not have enough balance."
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+    }
+}
