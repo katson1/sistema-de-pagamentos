@@ -36,7 +36,7 @@ class ApiUserStoreTest extends TestCase
         ]);
 
         $response = $this->postJson('/api/users', $userData);
-        $response->assertStatus(404);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors(['name', 'email', 'cpf_cnpj', 'user_type', 'balance', 'password']);
     }
 
@@ -48,7 +48,7 @@ class ApiUserStoreTest extends TestCase
         ]);
 
         $response = $this->postJson('/api/users', $userData);
-        $response->assertStatus(404);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors(['cpf_cnpj', 'balance']);
     }
 
@@ -69,7 +69,7 @@ class ApiUserStoreTest extends TestCase
         ]);
 
         $secondResponse = $this->postJson('/api/users', $secondUserData);
-        $secondResponse->assertStatus(404); // Espera falha devido a duplicidade
+        $secondResponse->assertStatus(400); // Espera falha devido a duplicidade
         $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']); // Verifica se os erros de email e cpf_cnpj duplicados são retornados
     }
 
