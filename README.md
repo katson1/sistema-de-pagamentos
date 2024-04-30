@@ -35,7 +35,16 @@ docker-compose exec app php artisan migrate
 ```
 
 ## Como Usar
-Em breve
+Se você está utilizando `docker` após a execução do comando no passo anterior, a aplicação já está em execução.
+Acesse a documentação da aplicação feita em swagger:
+`http://localhost:8989/api-docs`
+
+Se você está utilizando `SQLite` execute a aplicação:
+```bash
+php artisan serve
+```
+E acesse a documentação da aplicação feita em swagger:
+`http://localhost:8000/api-docs`
 
 ## Funcionalidades
 Em breve
