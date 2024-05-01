@@ -35,7 +35,16 @@ docker-compose exec app php artisan migrate
 ```
 
 ## Como Usar
-Em breve
+Se você está utilizando `docker` após a execução do comando no passo anterior, a aplicação já está em execução.
+Acesse a documentação da aplicação feita em swagger:
+`http://localhost:8989/api/documentation/`
+
+Se você está utilizando `SQLite` execute a aplicação:
+```bash
+php artisan serve
+```
+E acesse a documentação da aplicação feita em swagger:
+`http://localhost:8000/api/documentation/`
 
 ## Funcionalidades
 Em breve
@@ -44,6 +53,8 @@ Em breve
 Em breve
 
 ## Testes
+Os testes utilizam o SQLite com a base na memória (:memory:) já que a tabela de banco é simples, facilitando também os testes pelo github.
+
 Use o seguinte comando para executar os testes automatizados localmente (unitários e de integração):
 ```bash
 php artisan test
