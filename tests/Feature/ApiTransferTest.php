@@ -57,7 +57,7 @@ class ApiTransferTest extends TestCase
         ];
 
         $response = $this->postJson('/api/transfer', $transferData);
-        $response->assertStatus(404);
+        $response->assertStatus(400);
         $response->assertJsonValidationErrors(['amount']);
 
         $userCommonUpdated = User::find($userCommon->id);
