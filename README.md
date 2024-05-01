@@ -3,12 +3,10 @@
 Um sistema de pagamento simplificado que permite adicionar usuários comuns e lojistas e realizar transferências. Usuários comuns podem enviar dinheiro para lojistas e entre si. Lojistas apenas recebem transferências.
 
 ## Pré-requisitos
-[![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/downloads.php)
-[![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/docs/11.x/installation)
 
-Opcional:
-
-[![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/get-started/)
+| [![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/downloads.php) | [![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/docs/11.x/installation) | [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/get-started/) |
+| - | - | - |
+|　 v8.x  |　　v11.x | latest version
 
 ## Instalação e Configuração
 
@@ -17,7 +15,7 @@ Clone o projeto:
 git clone https://github.com/katson1/sistema-de-pagamentos.git
 ```
 
-Acesse a pasta do projeto e configure-o:
+Acesse a pasta do projeto e instale as dependências necessárias com o composer:
 ```bash
 cd sistema-de-pagamentos
 composer install
@@ -35,16 +33,16 @@ docker-compose exec app php artisan migrate
 ```
 
 ## Como Usar
-Se você está utilizando `docker` após a execução do comando no passo anterior, a aplicação já está em execução.
-Acesse a documentação da aplicação feita em swagger:
-`http://localhost:8989/api/documentation/`
+### Acessando a Documentação da API
 
-Se você está utilizando `SQLite` execute a aplicação:
-```bash
-php artisan serve
-```
-E acesse a documentação da aplicação feita em swagger:
-`http://localhost:8000/api/documentation/`
+Após iniciar a aplicação, você pode acessar a documentação interativa da API, que é fornecida pelo Swagger. Esta documentação oferece uma visão detalhada de todos os endpoints disponíveis, seus parâmetros, e as respostas esperadas para cada operação. Siga os passos abaixo para acessar a documentação:
+
+1. **Iniciar a Aplicação**: Certifique-se de que a aplicação está rodando. Se você está usando Docker, a aplicação deve estar acessível após os passos de configuração mencionados anteriormente. Para usuários do SQLite, certifique-se de que o comando `php artisan serve` foi executado com sucesso.
+
+2. **Acessar a Documentação**: Abra um navegador de sua preferência e visite o seguinte endereço:
+   - Para **Docker**: [http://localhost:8989/api/documentation/](http://localhost:8989/api/documentation/)
+   - Para **SQLite**: [http://localhost:8000/api/documentation/](http://localhost:8000/api/documentation/)
+
 
 ## Funcionalidades
 Em breve
