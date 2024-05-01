@@ -21,7 +21,7 @@ class StringConstants
     const ID_RECEIVER_NUMERIC = 'The receiver ID must be a numeric value.';
     const AMOUNT_REQUIRED = 'The amount is required.';
     const AMOUNT_NUMERIC = 'The amount must be a numeric value.';
-    const AMOUNT_MIN = 'The amount must be at least 0.1.';
+    const AMOUNT_MIN = 'The amount must be at least 0.01.';
 
     //user validation messages
     const NAME_REQUIRED = 'The name field is required.';

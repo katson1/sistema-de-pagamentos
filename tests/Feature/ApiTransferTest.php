@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\Models\User;
+use App\Constants\StringConstants;
 
 class ApiTransferTest extends TestCase
 {
@@ -32,6 +33,7 @@ class ApiTransferTest extends TestCase
         $response = $this->postJson('/api/transfer', $transferData);
         $response->assertStatus(200);
 
+        // testando se o 'balance' dos 'users' foram atualizados corretamente
         $userCommonUpdated = User::find($userCommon->id);
         $userStoreUpdated = User::find($userStore->id);
         $this->assertEquals(0, $userCommonUpdated->balance);
@@ -59,7 +61,10 @@ class ApiTransferTest extends TestCase
         $response = $this->postJson('/api/transfer', $transferData);
         $response->assertStatus(400);
         $response->assertJsonValidationErrors(['amount']);
+        $response->assertJson(['message' => StringConstants::INVALID_DATA_GIVEN]);
+        $response->assertJsonFragment([StringConstants::AMOUNT_MIN]);
 
+        // testando se o 'balance' dos 'users' se manteve o mesmo
         $userCommonUpdated = User::find($userCommon->id);
         $userStoreUpdated = User::find($userStore->id);
         $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
@@ -85,8 +90,9 @@ class ApiTransferTest extends TestCase
 
         $response = $this->postJson('/api/transfer', $transferData);
         $response->assertStatus(400);
-        $response->assertJson(['error' => 'Sender cannot send money.']);
+        $response->assertJson(['error' => StringConstants::SENDER_CANNOT_SEND]);
 
+        // testando se o 'balance' dos 'users' se manteve o mesmo
         $userCommonUpdated = User::find($userCommon->id);
         $userStoreUpdated = User::find($userStore->id);
         $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
@@ -113,8 +119,9 @@ class ApiTransferTest extends TestCase
 
         $response = $this->postJson('/api/transfer', $transferData);
         $response->assertStatus(400);
-        $response->assertJson(['error' => 'Sender does not have enough balance.']);
+        $response->assertJson(['error' => StringConstants::INSUFFICIENT_BALANCE]);
 
+        // testando se o 'balance' dos 'users' se manteve o mesmo
         $userCommonUpdated = User::find($userCommon->id);
         $userStoreUpdated = User::find($userStore->id);
         $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
@@ -136,8 +143,9 @@ class ApiTransferTest extends TestCase
 
         $response = $this->postJson('/api/transfer', $transferData);
         $response->assertStatus(400);
-        $response->assertJson(['error' => 'The sender cannot be the same as the receiver.']);
+        $response->assertJson(['error' => StringConstants::SAME_SENDER_RECEIVER]);
 
+        // testando se o 'balance' do 'user' se manteve o mesmo
         $userCommonUpdated = User::find($userCommon->id);
         $this->assertEquals($userCommon->balance, $userCommonUpdated->balance);
     }

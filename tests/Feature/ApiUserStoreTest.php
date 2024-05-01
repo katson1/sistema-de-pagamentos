@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use App\Constants\StringConstants;
 
 class ApiUserStoreTest extends TestCase
 {
@@ -37,6 +38,15 @@ class ApiUserStoreTest extends TestCase
 
         $response = $this->postJson('/api/users', $userData);
         $response->assertStatus(400);
+        $response->assertJson(['message' => StringConstants::INVALID_DATA_GIVEN]);
+        // Testando se os erros para cada campo é passado corretamente usando o arquivo de constantes
+        $response->assertJsonFragment([StringConstants::NAME_REQUIRED]);
+        $response->assertJsonFragment([StringConstants::EMAIL_EMAIL]);
+        $response->assertJsonFragment([StringConstants::CPF_CNPJ_NUMERIC]);
+        $response->assertJsonFragment([StringConstants::CPF_CNPJ_DIGITS_BETWEEN]);
+        $response->assertJsonFragment([StringConstants::USER_TYPE_IN]);
+        $response->assertJsonFragment([StringConstants::BALANCE_NUMERIC]);
+        $response->assertJsonFragment([StringConstants::PASSWORD_MIN]);
         $response->assertJsonValidationErrors(['name', 'email', 'cpf_cnpj', 'user_type', 'balance', 'password']);
     }
 
@@ -49,6 +59,10 @@ class ApiUserStoreTest extends TestCase
 
         $response = $this->postJson('/api/users', $userData);
         $response->assertStatus(400);
+        $response->assertJson(['message' => StringConstants::INVALID_DATA_GIVEN]);
+        // Testando se os erros para cada campo é passado corretamente usando o arquivo de constantes
+        $response->assertJsonFragment([StringConstants::CPF_CNPJ_DIGITS_BETWEEN]);
+        $response->assertJsonFragment([StringConstants::BALANCE_MIN]);
         $response->assertJsonValidationErrors(['cpf_cnpj', 'balance']);
     }
 
@@ -70,6 +84,10 @@ class ApiUserStoreTest extends TestCase
 
         $secondResponse = $this->postJson('/api/users', $secondUserData);
         $secondResponse->assertStatus(400); // Espera falha devido a duplicidade
+        $secondResponse->assertJson(['message' => StringConstants::INVALID_DATA_GIVEN]);
+        // Testando se os erros para cada campo é passado corretamente usando o arquivo de constantes
+        $secondResponse->assertJsonFragment([StringConstants::EMAIL_UNIQUE]);
+        $secondResponse->assertJsonFragment([StringConstants::CPF_CNPJ_UNIQUE]);
         $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']); // Verifica se os erros de email e cpf_cnpj duplicados são retornados
     }
 
