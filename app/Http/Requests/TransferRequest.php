@@ -22,7 +22,7 @@ class TransferRequest extends FormRequest
             'id_receiver' => 'required|numeric',
             'amount' => 'required|numeric|min:0.01',
         ];
-    }   
+    }
 
     public function messages(): array
     {
@@ -33,7 +33,7 @@ class TransferRequest extends FormRequest
             'id_receiver.numeric' => StringConstants::ID_RECEIVER_NUMERIC,
             'amount.required' => StringConstants::AMOUNT_REQUIRED,
             'amount.numeric' => StringConstants::AMOUNT_NUMERIC,
-            'amount.min' => StringConstants::AMOUNT_MIN 
+            'amount.min' => StringConstants::AMOUNT_MIN
         ];
     }
 

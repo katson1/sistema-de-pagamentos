@@ -26,10 +26,12 @@ class TransferController extends Controller
         $amount = $request->amount;
         try {
             $execute = $this->transferService->execute($sender, $receiver, $amount);
-            return response()->json([
+            return response()->json(
+                [
                 'message' => StringConstants::TRANSFER_SUCCESSFUL,
-                'notification' => $execute['notification']], 
-                200);
+                'notification' => $execute['notification']],
+                200
+            );
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

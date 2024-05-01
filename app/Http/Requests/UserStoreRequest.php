@@ -48,7 +48,7 @@ class UserStoreRequest extends FormRequest
     }
 
     protected function failedValidation(Validator $validator)
-    {    
+    {
         $response = response()->json([
             'message' => StringConstants::INVALID_DATA_GIVEN,
             'errors' => $validator->errors(),
