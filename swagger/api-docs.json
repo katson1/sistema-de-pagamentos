@@ -112,7 +112,7 @@
                   }
                 }
               },
-              "404": {
+              "400": {
                 "description": "Data given is invalid.",
                 "content": {
                   "json": {

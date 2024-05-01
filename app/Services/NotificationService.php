@@ -7,6 +7,7 @@ use App\Models\User;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\RequestOptions;
+use App\Constants\StringConstants;
 
 class NotificationService implements NotificationServiceInterface
 {
@@ -19,7 +20,7 @@ class NotificationService implements NotificationServiceInterface
 
     public function notifyUsers(User $sender, User $receiver, float $amount): bool
     {
-        $url = "https://run.mocky.io/v3/54dc2cf1-3add-45b5-b5a9-6bf7e7f1f4a6";
+        $url_notification = StringConstants::NOTIFICATION_MOCK_URL;
         $message = [
             'email' => $receiver->email,
             'amount' => $amount,
@@ -27,7 +28,7 @@ class NotificationService implements NotificationServiceInterface
         ];
 
         try {
-            $response = $this->client->request('POST', $url, [
+            $response = $this->client->request('POST', $url_notification, [
                 RequestOptions::JSON => $message
             ]);
             $data = json_decode($response->getBody()->getContents(), true);

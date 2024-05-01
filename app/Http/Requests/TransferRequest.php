@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Symfony\Component\HttpFoundation\Response;
+use App\Constants\StringConstants;
 
 class TransferRequest extends FormRequest
 {
@@ -26,22 +27,22 @@ class TransferRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'id_sender.required' => 'The sender ID is required.',
-            'id_sender.numeric' => 'The sender ID must be a numeric value.',
-            'id_receiver.required' => 'The receiver ID is required.',
-            'id_receiver.numeric' => 'The receiver ID must be a numeric value.',
-            'amount.required' => 'The amount is required.',
-            'amount.numeric' => 'The amount must be a numeric value.',
-            'amount.min' => 'The amount be at least 00.1.'
+            'id_sender.required' => StringConstants::ID_SENDER_REQUIRED,
+            'id_sender.numeric' => StringConstants::ID_SENDER_NUMERIC,
+            'id_receiver.required' => StringConstants::ID_RECEIVER_REQUIRED,
+            'id_receiver.numeric' => StringConstants::ID_RECEIVER_NUMERIC,
+            'amount.required' => StringConstants::AMOUNT_REQUIRED,
+            'amount.numeric' => StringConstants::AMOUNT_NUMERIC,
+            'amount.min' => StringConstants::AMOUNT_MIN 
         ];
     }
 
     protected function failedValidation(Validator $validator)
     {
         $response = response()->json([
-            'message' => 'Data given is invalid.',
+            'message' => StringConstants::INVALID_DATA_GIVEN,
             'errors' => $validator->errors(),
-        ], Response::HTTP_NOT_FOUND);
+        ], Response::HTTP_BAD_REQUEST);
 
         throw new HttpResponseException($response);
     }
