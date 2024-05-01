@@ -8,7 +8,7 @@ use App\Services\TransferService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Models\User;
-
+use App\Constants\StringConstants;
 
 class TransferController extends Controller
 {
@@ -26,10 +26,12 @@ class TransferController extends Controller
         $amount = $request->amount;
         try {
             $execute = $this->transferService->execute($sender, $receiver, $amount);
-            return response()->json([
-                'message' => 'Transfer successful!',
-                'notification' => $execute['notification']], 
-                200);
+            return response()->json(
+                [
+                'message' => StringConstants::TRANSFER_SUCCESSFUL,
+                'notification' => $execute['notification']],
+                200
+            );
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 400);
         }

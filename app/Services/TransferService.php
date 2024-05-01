@@ -7,14 +7,17 @@ use App\Services\Authorization\ExternalAuthorizationService;
 use App\Services\NotificationService;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Constants\StringConstants;
 
 class TransferService implements TransferInterface
 {
     private ExternalAuthorizationService $authorizationService;
     private NotificationService $notificationService;
 
-    public function __construct(ExternalAuthorizationService $authorizationService, NotificationService $notificationService)
-    {
+    public function __construct(
+        ExternalAuthorizationService $authorizationService,
+        NotificationService $notificationService
+    ) {
         $this->authorizationService = $authorizationService;
         $this->notificationService = $notificationService;
     }
@@ -45,28 +48,28 @@ class TransferService implements TransferInterface
     }
 
     private function validateTransaction(User $sender, User $receiver, float $amount): void
-    {   
+    {
         if ($sender == $receiver) {
-            throw new \Exception("The sender cannot be the same as the receiver.");
+            throw new \Exception(StringConstants::SAME_SENDER_RECEIVER);
         }
 
         if (!$sender->canSendMoney()) {
-            throw new \Exception("Sender cannot send money.");
+            throw new \Exception(StringConstants::SENDER_CANNOT_SEND);
         }
 
         if (!$receiver->canReceiveMoney()) {
-            throw new \Exception("Receiver cannot receive money.");
+            throw new \Exception(StringConstants::RECEIVER_CANNOT_RECEIVE);
         }
 
         if ($sender->balance < $amount) {
-            throw new \Exception("Sender does not have enough balance.");
+            throw new \Exception(StringConstants::INSUFFICIENT_BALANCE);
         }
     }
 
     private function authorizeTransaction(): void
     {
         if (!$this->authorizationService->authorize()) {
-            throw new \Exception("Transaction not authorized by external service.");
+            throw new \Exception(StringConstants::AUTHORIZATION_FAILED);
         }
     }
 }
