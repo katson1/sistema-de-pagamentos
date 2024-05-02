@@ -83,7 +83,7 @@ Ou no docker:
 docker-compose exec app php artisan test
 ```
 Cobertura de testes, gerado com php-code-coverage:
-
+![Imagem de cobertura de testes](public/images/testes.png)
 ## Autor
 <div align="left">
   <div>
