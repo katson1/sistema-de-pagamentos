@@ -13,9 +13,9 @@ class NotificationService implements NotificationServiceInterface
 {
     protected $client;
 
-    public function __construct()
+    public function __construct(Client $client)
     {
-        $this->client = new Client();
+        $this->client = $client;
     }
 
     public function notifyUsers(User $sender, User $receiver, float $amount): bool
