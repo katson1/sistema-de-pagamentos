@@ -46,6 +46,20 @@
             "@php artisan key:generate --ansi",
             "@php -r \"file_exists('database/database.sqlite') || touch('database/database.sqlite');\"",
             "@php artisan migrate --graceful --ansi"
+        ],
+        "setup-sqlite": [
+            "@php -r \"copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "@php -r \"file_exists('database\\database.sqlite') || touch('database\\database.sqlite');\"",
+            "@php artisan migrate",
+            "@php artisan serve"
+        ],
+        "setup-docker": [
+            "@php -r \"copy('.env.example.docker', '.env');\"",
+            "@php artisan key:generate",
+            "docker-compose up --build -d",
+            "docker-compose exec app php artisan key:generate",
+            "docker-compose exec app php artisan migrate"
         ]
     },
     "extra": {
