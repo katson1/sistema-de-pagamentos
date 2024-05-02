@@ -4,9 +4,11 @@ Um sistema de pagamento simplificado que permite adicionar usuários comuns e lo
 
 ## Pré-requisitos
 
-| [![PHP](https://img.shields.io/badge/php-%23777BB4.svg?style=for-the-badge&logo=php&logoColor=white)](https://www.php.net/downloads.php) | [![Laravel](https://img.shields.io/badge/laravel-%23FF2D20.svg?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com/docs/11.x/installation) | [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/get-started/) |
-| - | - | - |
-|　 v8.x  |　　v11.x | latest version
+Antes de começar, certifique-se de que seu ambiente de desenvolvimento atende aos seguintes requisitos:
+
+- [PHP](https://www.php.net/downloads.php) >= 8.2
+- [Composer](https://getcomposer.org/)
+- [Docker](https://www.docker.com/get-started/)
 
 ## Instalação e Configuração
 
@@ -20,17 +22,43 @@ Acesse a pasta do projeto e instale as dependências necessárias com o composer
 cd sistema-de-pagamentos
 composer install
 ```
-O projeto pode utilizar o SQLite e fornece suporte ao Docker, que gerencia uma imagem do Postgres. Note que o o Docker requer instalação prévia.
-Você pode utilizar os seguintes comandos do composer para configurar o uso do SQLite, ou do Docker:
-| SQLite         | Docker         |
-| -------------- | -------------- |
-| `composer setup-sqlite` | `composer setup-docker` |
 
-Se você está utilizando `docker` execute os seguintes comandos para a configuração:
-```bash
-docker-compose exec app php artisan key:generate
-docker-compose exec app php artisan migrate
+Este projeto oferece duas opções para configurar seu ambiente de desenvolvimento: usando SQLite com PHP diretamente ou usando Docker. Siga os passos abaixo de acordo com a sua preferência de ambiente.
+
+### Configuração com SQLite
+
+Para configurar e iniciar o projeto usando SQLite, execute o seguintes comando:
+``` bash
+composer setup-sqlite
 ```
+<blockquote> 
+<details>
+  <summary> O que esse script faz? </summary>
+   
+    Copia o arquivo .env.example para .env, configurando as variáveis de ambiente padrão.
+    Gera uma chave de aplicativo única usando php artisan key:generate.
+    Verifica se o arquivo database/database.sqlite existe, e cria um se não existir.
+    Executa as migrações do banco de dados com php artisan migrate.
+    Inicia o servidor de desenvolvimento local com php artisan serve.
+</details>
+</blockquote>
+
+
+### Configuração com Docker
+Para configurar e iniciar o projeto usando Docker, execute o seguinte comando:
+```bash
+composer setup-docker
+```
+<blockquote> 
+<details>
+  <summary> O que esse script faz? </summary>
+   
+    Copia o arquivo .env.example.docker para .env, configurando as variáveis de ambiente para uso com Docker.
+    Constrói e inicia os contêineres Docker com docker-compose up --build -d.
+    Gera uma chave de aplicativo única usando php artisan key:generate.
+    Executa as migrações do banco de dados dentro do contêiner app com docker-compose exec app php artisan migrate.
+</details>
+</blockquote>
 
 ## Como Usar
 ### Acessando a Documentação da API
@@ -43,13 +71,6 @@ Após iniciar a aplicação, você pode acessar a documentação interativa da A
    - Para **Docker**: [http://localhost:8989/api/documentation/](http://localhost:8989/api/documentation/)
    - Para **SQLite**: [http://localhost:8000/api/documentation/](http://localhost:8000/api/documentation/)
 
-
-## Funcionalidades
-Em breve
-
-## Arquitetura do Projeto
-Em breve
-
 ## Testes
 Os testes utilizam o SQLite com a base na memória (:memory:) já que a tabela de banco é simples, facilitando também os testes pelo github.
 
@@ -61,6 +82,7 @@ Ou no docker:
 ```bash
 docker-compose exec app php artisan test
 ```
+Cobertura de testes, gerado com php-code-coverage:
 
 ## Autor
 <div align="left">
