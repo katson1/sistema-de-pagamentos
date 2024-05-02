@@ -9,7 +9,7 @@
 
     },
     "paths": {
-        "/api/user": {
+        "/api/users": {
           "post": {
             "tags": [
               "User"
@@ -147,7 +147,7 @@
             }
           }
         },
-        "/api/tranfer": {
+        "/api/transfer": {
           "post": {
             "tags": [
               "Transfer"
