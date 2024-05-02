@@ -45,7 +45,7 @@ composer setup-sqlite
 
 
 ### Configuração com Docker
-Para configurar e iniciar o projeto usando Docker, execute o seguinte comando:
+Para configurar e iniciar o projeto utilizando o Docker, execute o comando a seguir. Este processo pode levar algum tempo, pois será necessário baixar as imagens do Docker.
 ```bash
 composer setup-docker
 ```
