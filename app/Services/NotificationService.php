@@ -19,9 +19,9 @@ class NotificationService implements NotificationServiceInterface
     /**
      * Construtor que inicializa o cliente HTTP.
      */
-    public function __construct()
+    public function __construct(Client $client)
     {
-        $this->client = new Client();
+        $this->client = $client;
     }
 
     /**
