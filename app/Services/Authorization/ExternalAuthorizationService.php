@@ -36,7 +36,7 @@ class ExternalAuthorizationService implements AuthorizationServiceInterface
         try {
             $response = $this->httpClient->request('GET', $url_auth);
             $data = json_decode($response->getBody()->getContents(), true);
-            
+
             return $data['message'] === 'Autorizado';
         } catch (GuzzleException $e) {
             throw new \Exception(StringConstants::AUTHORIZATION_CONNECTION_FAILED . ': ' . $e->getMessage());

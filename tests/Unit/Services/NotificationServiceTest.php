@@ -1,5 +1,7 @@
 <?php
 
+namespace Tests\Unit\Services;
+
 use PHPUnit\Framework\TestCase;
 use App\Services\NotificationService;
 use App\Models\User;
@@ -11,7 +13,10 @@ class NotificationServiceTest extends TestCase
     public function testNotifyUsersWithGuzzleException()
     {
         $httpClientMock = $this->createMock(Client::class);
-        $httpClientMock->method('request')->willThrowException(new RequestException("Erro de requisição", new \GuzzleHttp\Psr7\Request('POST', 'http://example.com')));
+        $httpClientMock->method('request')->willThrowException(new RequestException(
+            "Erro de requisição",
+            new \GuzzleHttp\Psr7\Request('POST', 'http://example.com')
+        ));
 
         $notificationService = new NotificationService($httpClientMock);
 

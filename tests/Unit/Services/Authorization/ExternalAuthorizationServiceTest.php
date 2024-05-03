@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Tests\Unit\Services\Authorization;
+
 use PHPUnit\Framework\TestCase;
 use App\Services\Authorization\ExternalAuthorizationService;
 use GuzzleHttp\Client;
@@ -8,7 +10,7 @@ use GuzzleHttp\Psr7\Request;
 
 class ExternalAuthorizationServiceTest extends TestCase
 {
-    public function test_authorize_with_failed_connection()
+    public function testAuthorizeWithFailedConnection()
     {
         $invalidUrl = "http://url-invalida.com";
 
