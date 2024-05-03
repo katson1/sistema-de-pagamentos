@@ -8,7 +8,7 @@ Antes de começar, certifique-se de que seu ambiente de desenvolvimento atende a
 
 - [PHP](https://www.php.net/downloads.php) >= 8.2
 - [Composer](https://getcomposer.org/)
-- [Docker](https://www.docker.com/get-started/)
+- [Docker](https://www.docker.com/get-started/) (opcional)
 
 ## Instalação e Configuração
 
