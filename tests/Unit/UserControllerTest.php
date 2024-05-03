@@ -10,7 +10,7 @@ use Mockery;
 
 class UserControllerTest extends TestCase
 {
-    public function test_store_method_catches_exception()
+    public function testStoreMethodCatchesException()
     {
         $userService = Mockery::mock(UserService::class);
         $userService->shouldReceive('createUser')->andThrow(new \Exception('Error message'));

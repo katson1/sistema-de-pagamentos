@@ -10,13 +10,13 @@ class ApiUserStoreTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_api_route_works(): void
+    public function testApiRouteWorks(): void
     {
         $response = $this->get('/api');
         $response->assertStatus(200);
     }
 
-    public function test_successful_user_creation()
+    public function testSuccessfulUserCreation()
     {
         $response = $this->postJson('/api/users', $this->userData());
         $response->assertStatus(201);
@@ -25,7 +25,7 @@ class ApiUserStoreTest extends TestCase
         ]);
     }
 
-    public function test_user_creation_with_invalid_data()
+    public function testUserCreationWithInvalidData()
     {
         $userData = $this->userData([
             'name' => '', // Inválido porque não está vazio
@@ -50,7 +50,7 @@ class ApiUserStoreTest extends TestCase
         $response->assertJsonValidationErrors(['name', 'email', 'cpf_cnpj', 'user_type', 'balance', 'password']);
     }
 
-    public function test_user_creation_with_invalid_ranges_data()
+    public function testUserCreationWithInvalidRangesData()
     {
         $userData = $this->userData([
             'cpf_cnpj' => '123', // Inválido porque é muito curto
@@ -66,7 +66,7 @@ class ApiUserStoreTest extends TestCase
         $response->assertJsonValidationErrors(['cpf_cnpj', 'balance']);
     }
 
-    public function test_user_creation_with_duplicate_email_and_cpf_cnpj()
+    public function testUserCreationWithDuplicateEmailAndCpfCnpj()
     {
         $userData = $this->userData([
             'email' => 'duplicate@test.com',
@@ -88,7 +88,7 @@ class ApiUserStoreTest extends TestCase
         // Testando se os erros para cada campo é passado corretamente usando o arquivo de constantes
         $secondResponse->assertJsonFragment([StringConstants::EMAIL_UNIQUE]);
         $secondResponse->assertJsonFragment([StringConstants::CPF_CNPJ_UNIQUE]);
-        $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']); // Verifica se os erros de email e cpf_cnpj duplicados são retornados
+        $secondResponse->assertJsonValidationErrors(['email', 'cpf_cnpj']);
     }
 
     //Func para reutilizar o userData nos testes

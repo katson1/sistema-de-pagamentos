@@ -20,11 +20,11 @@ class StringConstants
     // Mensagens de validação para detalhes do remetente na transferência
     public const ID_SENDER_REQUIRED = 'The sender ID is required.';
     public const ID_SENDER_NUMERIC = 'The sender ID must be a numeric value.';
-    
+
     // Mensagens de validação para detalhes do destinatário na transferência
     public const ID_RECEIVER_REQUIRED = 'The receiver ID is required.';
     public const ID_RECEIVER_NUMERIC = 'The receiver ID must be a numeric value.';
-    
+
     // Mensagens de validação para o montante da transferência
     public const AMOUNT_REQUIRED = 'The amount is required.';
     public const AMOUNT_NUMERIC = 'The amount must be a numeric value.';

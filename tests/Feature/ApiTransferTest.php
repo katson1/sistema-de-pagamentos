@@ -11,7 +11,7 @@ class ApiTransferTest extends TestCase
 {
     use RefreshDatabase;
 
-    public function test_successful_transfer()
+    public function testSuccessfulTransfer()
     {
         $userCommon = User::factory()->create([
             'user_type' => 'common',
@@ -40,7 +40,7 @@ class ApiTransferTest extends TestCase
         $this->assertEquals(200, $userStoreUpdated->balance);
     }
 
-    public function test_fail_transfer_amount_less_than_001()
+    public function testFailTransferAmountLessThan001()
     {
         $userCommon = User::factory()->create([
             'user_type' => 'common',
@@ -71,7 +71,7 @@ class ApiTransferTest extends TestCase
         $this->assertEquals($userStore->balance, $userStoreUpdated->balance);
     }
 
-    public function test_fail_transfer_store_trying_to_send()
+    public function testFailTransferStoreTryingToSend()
     {
         $userCommon = User::factory()->create([
             'user_type' => 'common'
@@ -99,7 +99,7 @@ class ApiTransferTest extends TestCase
         $this->assertEquals($userStore->balance, $userStoreUpdated->balance);
     }
 
-    public function test_fail_transfer_not_have_enough_balance()
+    public function testFailTransferNotHaveEnoughBalance()
     {
         $userCommon = User::factory()->create([
             'user_type' => 'common',
@@ -128,7 +128,7 @@ class ApiTransferTest extends TestCase
         $this->assertEquals($userStore->balance, $userStoreUpdated->balance);
     }
 
-    public function test_fail_transfer_same_sender_and_receiver()
+    public function testFailTransferSameSenderAndReceiver()
     {
         $userCommon = User::factory()->create([
             'user_type' => 'common',

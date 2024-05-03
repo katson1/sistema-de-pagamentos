@@ -36,7 +36,7 @@ class TransferController extends Controller
 
         try {
             $execute = $this->transferService->execute($sender, $receiver, $amount);
-            
+
             return response()->json([
                 'message' => StringConstants::TRANSFER_SUCCESSFUL,
                 'notification' => $execute['notification']
