@@ -1,4 +1,4 @@
-# Sistemas de Pagamentos Simplificado
+# Sistemas de pagamentos simplificado
 
 Um sistema de pagamento simplificado que permite adicionar usuários comuns e lojistas e realizar transferências. Usuários comuns podem enviar dinheiro para lojistas e entre si. Lojistas apenas recebem transferências.
 
