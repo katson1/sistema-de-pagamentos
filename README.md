@@ -1,6 +1,6 @@
 # Sistemas de pagamentos simplificado
 
-Um sistema de pagamento simplificado que permite adicionar usuários comuns e lojistas e realizar transferências. Usuários comuns podem enviar dinheiro para lojistas e entre si. Lojistas apenas recebem transferências.
+Um sistema de pagamento simplificado que permite adicionar usuários comuns e lojistas e realizar transferências. Usuários comuns podem enviar dinheiro para lojistas e entre si. Lojistas apenas recebem transferências. *(criado para um teste)*
 
 ## Pré-requisitos
 
@@ -93,9 +93,6 @@ Cobertura de testes, gerado com php-code-coverage:
     </a>
     <a href="https://discordapp.com/users/210789016675549184">
       <img src="https://skillicons.dev/icons?i=discord" alt="html" height="15"/>
-    </a>
-    <a href="https://www.linkedin.com/in/katsonmatheus/">
-      <img src="https://skillicons.dev/icons?i=linkedin" alt="html" height="15"/>
     </a>
     <a href="mailto:katson.alves@ccc.ufcg.edu.br">
       <img src="https://skillicons.dev/icons?i=gmail" alt="html" height="15"/>
